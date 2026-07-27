@@ -1,0 +1,10 @@
+# models/sources.yml
+version: 2
+
+sources:
+  - name: raw_github
+    database: ""
+    schema: main
+    tables:
+      - name: stg_raw_pull_requests
+  

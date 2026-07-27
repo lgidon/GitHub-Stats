@@ -10,9 +10,9 @@
             "alias": "warehouse",
             "type": "file",
             "path": "/workspaces/GitHub-Stats/data/warehouse.duckdb",
-            "readOnly": true,
-            "attached": true
+            "readOnly": false,
+            "attached": false
         }
     ],
-    "duckdb.defaultDatabase": "warehouse"
+    "duckdb.defaultDatabase": "dev"
 }
