@@ -34,9 +34,8 @@ jobs:
       - name: Step 2 - Transform with dbt
         run: |
           cd transform
-          dbt deps
-          dbt run
-          dbt test
+          dbt run --profiles-dir .
+          dbt test --profiles-dir .
 
       - name: Step 3 - Export Marts to Parquet
         run: |
