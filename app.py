@@ -238,7 +238,7 @@ with tab1:
         st.plotly_chart(fig_authors, use_container_width=True)
         
         # Data table view
-        st.dataframe(authors_df, use_container_width=True, hide_index=True)
+        # st.dataframe(authors_df, use_container_width=True, hide_index=True)
 
 with tab2:
     st.subheader("Fact Pull Requests Mart")
