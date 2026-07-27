@@ -21,5 +21,12 @@
             "readOnly": false
         }
     ],
-    "duckdb.defaultDatabase": "dev"
+    "duckdb.defaultDatabase": "dev",
+    "editor.acceptSuggestionOnEnter": true,
+    "editor.quickSuggestions": {
+        "other": false,
+        "comments": false,
+        "strings": false
+    },
+    "editor.quickSuggestionsDelay": 300
 }

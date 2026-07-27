@@ -1,1 +1,0 @@
-SELECT * FROM read_parquet('../data/exports/fct_pull_requests.parquet')

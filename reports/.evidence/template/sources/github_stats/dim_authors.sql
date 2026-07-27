@@ -1,1 +1,0 @@
-SELECT * FROM read_parquet('../data/exports/dim_authors.parquet')
