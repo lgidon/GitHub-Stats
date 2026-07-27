@@ -27,7 +27,7 @@ jobs:
 
       - name: Step 1 - Extract Raw Data
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
         run: |
           python src/extract.py
 
