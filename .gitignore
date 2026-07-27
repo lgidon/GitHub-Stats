@@ -219,6 +219,7 @@ __marimo__/
 
 #DuckDB
 data/*.duckdb
+data/*.json
 
 # Visual Studio Code
 .vscode/*

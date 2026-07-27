@@ -4,6 +4,9 @@ import time
 import duckdb
 import requests
 from dotenv import load_dotenv
+import json
+
+CONFIG_PATH = os.getenv("CONFIG_PATH", "config.json")
 
 # Load environment variables from .env file (for local testing)
 load_dotenv()
@@ -81,28 +84,47 @@ def load_to_duckdb(all_prs: list):
     # Ensure output data folder exists
     os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
 
-    # Connect to DuckDB database file
-    conn = duckdb.connect(DB_PATH)
+    # Temporary raw JSON file path
+    temp_json_path = "data/temp_prs.json"
 
-    print(f"📦 Loading {len(all_prs)} records into DuckDB (`{DB_PATH}`)...")
+    # Write Python list of dicts to a temporary JSON file
+    with open(temp_json_path, "w", encoding="utf-8") as f:
+        json.dump(all_prs, f)
 
-    # DuckDB natively reads Python list-of-dicts via Arrow/Pandas reflection!
-    # Overwrite raw staging table on each extract run
-    conn.execute("CREATE OR REPLACE TABLE stg_raw_pull_requests AS SELECT * FROM all_prs")
+    try:
+        # Connect to DuckDB database file
+        conn = duckdb.connect(DB_PATH)
 
-    # Quick verification count
-    count = conn.execute("SELECT COUNT(*) FROM stg_raw_pull_requests").fetchone()[0]
-    print(f"🎉 Success! `stg_raw_pull_requests` table now contains {count} rows.")
+        print(f"📦 Loading {len(all_prs)} records into DuckDB (`{DB_PATH}`)...")
 
-    conn.close()
+        # DuckDB reads JSON directly from disk and infers the table schema automatically
+        conn.execute(f"""
+            CREATE OR REPLACE TABLE stg_raw_pull_requests AS 
+            SELECT * FROM read_json_auto('{temp_json_path}');
+        """)
 
+        # Quick verification count
+        count = conn.execute("SELECT COUNT(*) FROM stg_raw_pull_requests").fetchone()[0]
+        print(f"🎉 Success! `stg_raw_pull_requests` table now contains {count} rows.")
+
+        conn.close()
+
+    finally:
+        # Clean up temporary raw JSON file
+        if os.path.exists(temp_json_path):
+            os.remove(temp_json_path)
 
 def main():
     print("🚀 Starting GitHub API Extraction...")
     aggregated_prs = []
 
+    with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+        config = json.load(f)
+
+    max_pages = config.get("max_pages", 3)
+
     for target in TARGET_REPOS:
-        prs = fetch_pull_requests(target["owner"], target["repo"], max_pages=3)
+        prs = fetch_pull_requests(target["owner"], target["repo"], max_pages=max_pages)
         aggregated_prs.extend(prs)
 
     load_to_duckdb(aggregated_prs)
