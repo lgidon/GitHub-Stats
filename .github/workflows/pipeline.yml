@@ -57,6 +57,7 @@ jobs:
         run: |
           cd reports
           npm ci
+          npm run sources
           npm run build
 
       - name: Upload GitHub Pages Artifact
