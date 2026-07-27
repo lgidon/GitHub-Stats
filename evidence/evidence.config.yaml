@@ -79,4 +79,7 @@ plugins:
     "@evidence-dev/sqlite": { }
     "@evidence-dev/trino": { }
     "@evidence-dev/motherduck": { }
-basePath: "/GitHub-Stats"
+deployment:
+  # The base path is the root path where your evidence report will be deployed.
+  # For example, if you deploy to GitHub Pages, this should be the name of your repository.
+  basePath: "/GitHub-Stats"
