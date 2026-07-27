@@ -59,6 +59,8 @@ jobs:
           node-version: '20'
 
       - name: Step 5 - Build Evidence Report
+        env:
+            EVIDENCE_BASE_PATH: "/GitHub-Stats"
         run: |
           cd reports
           npm ci
@@ -68,7 +70,7 @@ jobs:
       - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: reports/build/GitHub-Stats
+          path: reports/build
 
   deploy-pages:
     needs: run-pipeline
