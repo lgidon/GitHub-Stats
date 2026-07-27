@@ -232,3 +232,17 @@ data/*.json
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+# dbt compiled files and outputs
+target/
+
+# dbt installed packages
+dbt_packages/
+dbt_modules/ # legacy name for packages
+
+# dbt logs
+logs/
+dbt.log
+
+# Local profiles or credentials (if stored in project)
+profiles.yml
