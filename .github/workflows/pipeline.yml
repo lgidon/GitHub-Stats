@@ -1,0 +1,50 @@
+name: DevOps Analytics Data Pipeline
+
+on:
+  schedule:
+    # Runs daily at midnight UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Step 1 - Extract Raw Data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          python src/extract.py
+
+      - name: Step 2 - Transform with dbt
+        run: |
+          cd transform
+          dbt deps
+          dbt run
+          dbt test
+
+      - name: Step 3 - Export Marts to Parquet
+        run: |
+          python src/export.py
+
+      - name: Step 4 - Upload Parquet Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-dora-metrics-parquet
+          path: data/exports/*.parquet
+          retention-days: 14

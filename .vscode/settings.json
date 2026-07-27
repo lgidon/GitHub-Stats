@@ -12,6 +12,13 @@
             "path": "/workspaces/GitHub-Stats/data/warehouse.duckdb",
             "readOnly": false,
             "attached": false
+        },
+        {
+            "alias": "dev",
+            "type": "file",
+            "path": "/workspaces/GitHub-Stats/transform/dev.duckdb",
+            "attached": false,
+            "readOnly": false
         }
     ],
     "duckdb.defaultDatabase": "dev"

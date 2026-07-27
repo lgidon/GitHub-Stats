@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: fct_pull_requests
+    description: "Fact table containing pull request lifecycle events and DORA metrics."
+    columns:
+      - name: pull_request_id
+        description: "Primary key for the pull request."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: pull_request_number
+        description: "GitHub PR number."
+        data_tests:
+          - not_null
+
+  - name: dim_authors
+    description: "Dimension table summarizing contributor activity and merge metrics."
+    columns:
+      - name: author_username
+        description: "GitHub username."
+        data_tests:
+          - unique
+          - not_null
