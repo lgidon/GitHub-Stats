@@ -10,7 +10,10 @@ permissions:
   contents: write
 
 jobs:
-  run-pipeline:
+  # ---------------------------------------------------------------------------
+  # JOB 1: Complete ELT Pipeline Processing
+  # ---------------------------------------------------------------------------
+  build-elt:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,13 +29,12 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements-elt.txt; fi
+          if [ -f requirements-elt.txt ]; then pip install -r requirements-elt.txt; fi
 
       - name: Step 1 - Extract Raw Data
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          python src/extract.py
+        run: python src/extract.py
 
       - name: Step 2 - Transform with dbt
         run: |
@@ -41,8 +43,7 @@ jobs:
           dbt test --profiles-dir ./.dbt
 
       - name: Step 3 - Export Marts to Parquet
-        run: |
-          python src/export.py
+        run: python src/export.py
 
       - name: Step 4 - Upload Parquet Artifacts
         uses: actions/upload-artifact@v4
@@ -50,6 +51,23 @@ jobs:
           name: github-dora-metrics-parquet
           path: data/exports/*.parquet
           retention-days: 14
+
+  # ---------------------------------------------------------------------------
+  # JOB 2: Publish Parquet Exports back to repository for Streamlit
+  # ---------------------------------------------------------------------------
+  publish-marts:
+    needs: build-elt
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Download Parquet Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: github-dora-metrics-parquet
+          path: data/exports/
 
       - name: Commit Updated Parquet Exports
         run: |
