@@ -1,0 +1,4 @@
+name: github_stats
+type: duckdb
+options:
+  filename: ":memory:"

@@ -10,7 +10,7 @@
             "alias": "warehouse",
             "type": "file",
             "path": "/workspaces/GitHub-Stats/data/warehouse.duckdb",
-            "readOnly": false,
+            "readOnly": true,
             "attached": false
         },
         {
@@ -21,5 +21,13 @@
             "readOnly": false
         }
     ],
-    "duckdb.defaultDatabase": "dev"
+    "duckdb.defaultDatabase": "dev",
+    "files.autoSave": "off",
+    "editor.acceptSuggestionOnEnter": true,
+    "editor.quickSuggestions": {
+        "other": false,
+        "comments": false,
+        "strings": false
+    },
+    "editor.quickSuggestionsDelay": 300
 }
