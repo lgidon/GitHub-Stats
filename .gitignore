@@ -245,5 +245,4 @@ logs/
 dbt.log
 
 # Local profiles or credentials (if stored in project)
-profiles.yml
 temp.py

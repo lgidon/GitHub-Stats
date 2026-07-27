@@ -1,0 +1,7 @@
+transform:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: '/workspaces/GitHub-Stats/data/warehouse.duckdb'
+      schema: main
