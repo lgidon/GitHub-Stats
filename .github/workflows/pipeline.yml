@@ -60,7 +60,7 @@ jobs:
 
       - name: Step 5 - Build Evidence Report
         env:
-            EVIDENCE_BASE_PATH: "/GitHub-Stats"
+            BASE_PATH: '/${{ github.event.repository.name }}'
         run: |
           cd reports
           npm ci
@@ -70,15 +70,32 @@ jobs:
       - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: reports/build
+          path: 'build/${{ github.event.repository.name }}'
 
-  deploy-pages:
-    needs: run-pipeline
+  deploy:
+    needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+
+  permissions:
+    pages: write
+    id-token: write
+
+  environment:
+    name: github-pages
+    url: ${{ steps.deployment.outputs.page_url }}
+
+  steps:
+    - name: Deploy
+      id: deployment
+      uses: actions/deploy-pages@v4
+
+  # deploy-pages:
+  #   needs: run-pipeline
+  #   runs-on: ubuntu-latest
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
+  #   steps:
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v4
