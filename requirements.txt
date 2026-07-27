@@ -5,7 +5,7 @@ babel==2.18.0
 certifi==2026.7.22
 charset-normalizer==3.4.9
 click==8.4.2
-cdcolorama==0.4.6
+colorama==0.4.6
 daff==1.4.2
 dbt-adapters==1.24.5
 dbt-common==1.38.0
@@ -29,8 +29,10 @@ metricflow==0.211.0
 more-itertools==10.8.0
 msgpack==1.2.1
 networkx==3.6.1
+numpy==2.5.1
 orderly-set==5.5.0
 packaging==26.2
+pandas==3.0.5
 parsedatetime==2.6
 pathspec==1.0.4
 protobuf==6.33.6
