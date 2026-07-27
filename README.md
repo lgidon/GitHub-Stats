@@ -1,7 +1,18 @@
 # 📊 GitHub Engineering Metrics & DORA Analytics Pipeline
 
+<!-- Deployment & Workflow Badges -->
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://dora-metrics.streamlit.app)
 [![Pipeline Status](https://github.com/lgidon/GitHub-Stats/actions/workflows/pipeline.yml/badge.svg)](https://github.com/lgidon/GitHub-Stats/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+<!-- Tech Stack Badges -->
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat&logo=python&logoColor=white)
+![dbt](https://img.shields.io/badge/dbt-DuckDB-FF694B?style=flat&logo=dbt&logoColor=white)
+![DuckDB](https://img.shields.io/badge/DuckDB-0.10+-FFF000?style=flat&logo=duckdb&logoColor=black)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.30+-FF4B4B?style=flat&logo=streamlit&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-Automation-2088FF?style=flat&logo=githubactions&logoColor=white)
+
+
 
 
 An end-to-end, production-grade Data Engineering pipeline and interactive dashboard that ingests GitHub REST API metrics, transforms data into analytical star schemas using **dbt** and **DuckDB**, and publishes live DORA metrics via a **Streamlit** web application.
@@ -119,6 +130,10 @@ Data integrity is maintained using dbt tests defined in schema configuration fil
 * Accepted Values: Validating PR state values (open, closed, merged).
 
 * Relationship Integrity: Foreign key checks linking fact tables to dimension models.
+
+## 📸 Dashboard Preview
+
+![GitHub Stats & DORA Metrics Dashboard](Assets/dora-metrics.gif)
 
 ## 🔗 Live Demo & Deployment
 
