@@ -1,3 +1,24 @@
 {
-  "max_pages": 3
+  "max_pages": 6,
+  "target_repos": [
+    {
+      "owner": "duckdb",
+      "repo": "duckdb"
+    },
+    {
+      "owner": "jenkinsci",
+      "repo": "jenkins"
+    },
+    {
+      "owner": "apache",
+      "repo": "airflow"
+    },
+    {
+      "owner": "astral-sh",
+      "repo": "ruff"
+    },
+    {
+      "owner": "streamlit",
+      "repo": "streamlit"
+    }
 }

@@ -14,13 +14,6 @@ load_dotenv()
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 DB_PATH = os.getenv("DUCKDB_PATH", "data/warehouse.duckdb")
 
-# Target repositories to ingest
-# Temp values, need to store seperatly in the future
-TARGET_REPOS = [
-    {"owner": "duckdb", "repo": "duckdb"},
-    {"owner": "jenkinsci", "repo": "jenkins"},
-]
-
 
 def get_headers():
     """Build authorization headers for GitHub API."""
@@ -122,8 +115,15 @@ def main():
         config = json.load(f)
 
     max_pages = config.get("max_pages", 3)
+    target_repos = config.get(
+        "target_repos",
+        [
+            {"owner": "duckdb", "repo": "duckdb"},
+            {"owner": "jenkinsci", "repo": "jenkins"},
+        ],
+    )
 
-    for target in TARGET_REPOS:
+    for target in target_repos:
         prs = fetch_pull_requests(target["owner"], target["repo"], max_pages=max_pages)
         aggregated_prs.extend(prs)
 
