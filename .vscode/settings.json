@@ -11,7 +11,7 @@
             "type": "file",
             "path": "/workspaces/GitHub-Stats/data/warehouse.duckdb",
             "readOnly": false,
-            "attached": false
+            "attached": true
         },
         {
             "alias": "dev",
