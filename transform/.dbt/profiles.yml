@@ -3,5 +3,5 @@ transform:
   outputs:
     dev:
       type: duckdb
-      path: '/workspaces/GitHub-Stats/data/warehouse.duckdb'
+      path: '../data/warehouse.duckdb'
       schema: main
