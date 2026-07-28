@@ -11,7 +11,7 @@
             "type": "file",
             "path": "/workspaces/GitHub-Stats/data/warehouse.duckdb",
             "readOnly": false,
-            "attached": true
+            "attached": false
         },
         {
             "alias": "dev",
@@ -22,7 +22,7 @@
         }
     ],
     "duckdb.defaultDatabase": "dev",
-    "editor.acceptSuggestionOnEnter": true,
+    "editor.acceptSuggestionOnEnter": "on",
     "editor.quickSuggestions": {
         "other": false,
         "comments": false,

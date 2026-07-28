@@ -127,3 +127,23 @@ The production dashboard is hosted on **Streamlit Community Cloud** and automati
 👉 **Explore the Live App Here:** [https://github-stats.streamlit.app](https://dora-metrics.streamlit.app)
 
 ---
+
+## 🔬 Ad-Hoc Exploratory Analysis
+
+In addition to the interactive dashboard, the exported Parquet files allow for rapid ad-hoc SQL querying and exploratory analysis without spinning up a database server.
+
+Check out [`notebooks/ad_hoc_dora_analysis.ipynb`](notebooks/ad_hoc_dora_analysis.ipynb) to see how to query the Parquet data marts directly using DuckDB and Plotly in Python:
+
+```python
+import duckdb
+
+# Query local Parquet marts using standard SQL via DuckDB
+df = duckdb.query("""
+    SELECT repo_name, COUNT(*) as total_prs, AVG(total_open_hours) as avg_open_time
+    FROM '../data/exports/fct_pull_requests.parquet'
+    GROUP BY repo_name
+    """).df()
+
+df
+```
+---
