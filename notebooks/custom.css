@@ -1,7 +1,88 @@
+/* ==========================================
+   JUPYTER NOTEBOOK CUSTOM STYLESHEET
+   ========================================== */
 
-h3 {
-  border: 1.5px solid #333;
-  padding: 8px 12px;
-  background-image: linear-gradient(180deg, #fff, rgb(160, 147, 147));
-  position: static;
+/* 1. Global Page Width & Font Settings */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+#notebook-container {
+    width: 90% !important; /* Expand workspace width */
+    max-width: 1200px !important;
+    padding: 30px !important;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 2. Code Cell Layout & Output Tweaks */
+div.input_area {
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 4px !important;
+    background: #f7f9fa !important;
+}
+
+div.output_area pre {
+    font-family: 'Fira Code', 'Consolas', monospace !important;
+    font-size: 13px !important;
+}
+
+/* Remove ugly gray background around cells */
+div.cell.selected {
+    border-left: 5px solid #4a90e2 !important;
+    background: transparent !important;
+}
+
+/* 3. Enhanced Table Formatting */
+.rendered_html table {
+    border-collapse: collapse !important;
+    margin: 15px 0 !important;
+    font-size: 14px !important;
+    width: 100% !important;
+}
+
+.rendered_html th {
+    background-color: #f2f4f8 !important;
+    color: #333333 !important;
+    font-weight: 600 !important;
+    border: 1px solid #d0d7de !important;
+    padding: 8px 12px !important;
+}
+
+.rendered_html td {
+    border: 1px solid #e1e4e8 !important;
+    padding: 6px 12px !important;
+}
+
+.rendered_html tr:nth-child(even) {
+    background-color: #f8f9fa !important; /* Zebra striping */
+}
+
+/* 4. Headings & Markdown Formatting */
+.rendered_html h1 {
+    color: #1a365d !important;
+    font-weight: 700 !important;
+    margin-top: 30px !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+    padding-bottom: 8px !important;
+}
+
+.rendered_html h2 {
+    color: #2b6cb0 !important;
+    font-weight: 600 !important;
+    margin-top: 25px !important;
+}
+
+.rendered_html p {
+    line-height: 1.6 !important;
+    color: #2d3748 !important;
+}
+
+/* 5. Custom UI Component Overrides (Notebook 7+) */
+#top-panel-wrapper, #jp-top-bar {
+    background-color: #f8f9fa !important;
+}
+
+.jp-NotebookPanel-toolbar {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0 !important;
 }
