@@ -33,7 +33,7 @@ jobs:
 
       - name: Step 1 - Extract Raw Data
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          TOKEN: ${{ secrets.TOKEN }}
         run: python src/extract.py
 
       - name: Step 2 - Transform with dbt
