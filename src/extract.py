@@ -11,7 +11,7 @@ CONFIG_PATH = os.getenv("CONFIG_PATH", "config.json")
 # Load environment variables from .env file (for local testing)
 load_dotenv()
 
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_TOKEN = os.getenv("TOKEN")
 DB_PATH = os.getenv("DUCKDB_PATH", "data/warehouse.duckdb")
 
 
