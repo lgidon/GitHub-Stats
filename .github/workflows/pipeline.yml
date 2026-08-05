@@ -13,7 +13,7 @@ jobs:
   # ---------------------------------------------------------------------------
   # JOB 1: Complete ELT Pipeline Processing
   # ---------------------------------------------------------------------------
-    build-elt:
+  build-elt:
     runs-on: ubuntu-latest
 
     steps:
@@ -50,7 +50,6 @@ jobs:
           name: github-dora-metrics-parquet
           path: data/exports/*.parquet
           retention-days: 14
-
   # ---------------------------------------------------------------------------
   # JOB 2: Publish Parquet Exports back to repository for Streamlit
   # ---------------------------------------------------------------------------
