@@ -14,6 +14,8 @@ jobs:
   # JOB 1: Complete ELT Pipeline Processing
   # ---------------------------------------------------------------------------
   build-elt:
+    outputs:
+      should_run_job2: ${{ steps.handle_failure.outputs.should_run_job2 || 'true' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -53,11 +55,27 @@ jobs:
           name: github-dora-metrics-parquet
           path: data/exports/*.parquet
           retention-days: 14
+
+      # Catch failures right at the end of Job 1
+      - name: Handle Failures
+        id: handle_failure
+        if: failure()
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "::warning::Job 1 failed during a manual run. Suppressing failure email and stopping workflow."
+            echo "should_run_job2=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          else
+            # On automated runs, exit with code 1 so it fails normally and sends the email
+            exit 1
+          fi
+
   # ---------------------------------------------------------------------------
   # JOB 2: Publish Parquet Exports back to repository for Streamlit
   # ---------------------------------------------------------------------------
   publish-marts:
     needs: build-elt
+    if: ${{ needs.build-elt.result == 'success' && needs.build-elt.outputs.should_run_job2 != 'false' }}
     runs-on: ubuntu-latest
 
     steps:
